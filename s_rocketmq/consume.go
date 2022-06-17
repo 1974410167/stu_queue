@@ -20,22 +20,31 @@ func Consumer1() {
 	)
 	// 必须先在 开始前
 	err := c.Subscribe("Topic-test", consumer.MessageSelector{}, func(ctx context.Context, ext ...*primitive.MessageExt) (consumer.ConsumeResult, error) {
+		fmt.Println(ext)
+		fmt.Println("Xxxx")
 		for i := range ext {
 			fmt.Printf("subscribe callback:%v \n", ext[i])
 		}
 		return consumer.ConsumeSuccess, nil
 	})
+	fmt.Println("Xxxx1111")
+
 	if err != nil {
 		fmt.Println(err.Error())
 	}
+
 	err = c.Start()
+	fmt.Println("Xxxx1111222")
+
 	if err != nil {
 		fmt.Println(err.Error())
 		os.Exit(-1)
 	}
+
 	time.Sleep(time.Hour)
 	err = c.Shutdown()
 	if err != nil {
 		fmt.Printf("shutdown Consumer error:%s",err.Error())
 	}
 }
+

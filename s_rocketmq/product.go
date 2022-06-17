@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/apache/rocketmq-client-go/v2"
-	"github.com/apache/rocketmq-client-go/v2/admin"
 	"github.com/apache/rocketmq-client-go/v2/primitive"
 	"github.com/apache/rocketmq-client-go/v2/producer"
 	"os"
@@ -28,20 +27,22 @@ func Producer1() {
 		os.Exit(1)
 	}
 
-	testAdmin, err := admin.NewAdmin(admin.WithResolver(primitive.NewPassthroughResolver([]string{"127.0.0.1:9876"})))
-	if err != nil{
-		fmt.Println("admin创建失败",err)
-		os.Exit(1)
-	}
-	err = testAdmin.CreateTopic(
-		context.Background(),
-		admin.WithTopicCreate("Topic-test"),
-		admin.WithBrokerAddrCreate("192.169.1.2:10911"),
-	)
-	if err != nil{
-		fmt.Println("topic创建失败",err)
-		os.Exit(1)
-	}
+	//testAdmin, err := admin.NewAdmin(admin.WithResolver(primitive.NewPassthroughResolver([]string{"127.0.0.1:9876"})))
+	//if err != nil{
+	//	fmt.Println("admin创建失败",err)
+	//	os.Exit(1)
+	//}
+	//err = testAdmin.CreateTopic(
+	//	context.Background(),
+	//	admin.WithTopicCreate("Topic-test"),
+	//	//admin.WithBrokerAddrCreate("192.169.1.2:10911"),
+	//	admin.WithBrokerAddrCreate("127.0.0.1:10911"),
+	//
+	//)
+	//if err != nil{
+	//	fmt.Println("topic创建失败",err)
+	//	os.Exit(1)
+	//}
 	// 设置节点名称
 	topic := "Topic-test"
 	// 循坏发送信息 (同步发送)
@@ -64,3 +65,5 @@ func Producer1() {
 		fmt.Printf("shutdown producer error:%s",err.Error())
 	}
 }
+
+
